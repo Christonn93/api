@@ -1,0 +1,24 @@
+# Node.js dependencies
+/node_modules/
+
+# TypeScript build output
+/dist/
+/build/
+
+# Environment variables
+.env
+
+# IDE/editor configurations
+/.vscode/
+/.idea/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Optional: Ignore any compiled JS files in the project (if you want to keep only TypeScript)
+*.js
+*.tsbuildinfo
