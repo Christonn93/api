@@ -21,9 +21,8 @@ app.use(
  swaggerUi.serve,
  swaggerUi.setup(specs, {
   customCss: ".swagger-ui { background-color: #f0f0f0; }",
-  customCssUrl: "./config/swagger/style/customCssUrl.css", // Custom CSS file
-  customJs: "/path/to/custom-scripts.js", // Custom JS file
-  customSiteTitle: "My API Docs", // Custom title
+  customCssUrl: "./config/swagger/style/customCssUrl.css",
+  customSiteTitle: "My API Docs",
  })
 );
 
@@ -32,9 +31,8 @@ app.use(
  swaggerUi.serve,
  swaggerUi.setup(specs, {
   customCss: ".swagger-ui { background-color: #f0f0f0; }",
-  customCssUrl: "./config/swagger/style/customCssUrl.css", // Custom CSS file
-  customJs: "/path/to/custom-scripts.js", // Custom JS file
-  customSiteTitle: "My API Docs", // Custom title
+  customCssUrl: "./config/swagger/style/customCssUrl.css",
+  customSiteTitle: "My API Docs",
  })
 );
 

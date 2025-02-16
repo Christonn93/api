@@ -1,6 +1,6 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import { marketplaceDocs, newspaperDocs, userDocs } from "./swaggerDocs";
+import { authDocs, blogDocs, marketplaceDocs, newspaperDocs, userDocs } from "./swaggerDocs";
 
 const options: swaggerJsdoc.Options = {
  definition: {
@@ -27,7 +27,9 @@ const options: swaggerJsdoc.Options = {
   },
   security: [{ bearerAuth: [] }],
   paths: {
+   ...authDocs,
    ...userDocs,
+   ...blogDocs,
    ...marketplaceDocs,
    ...newspaperDocs,
   },

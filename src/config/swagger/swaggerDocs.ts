@@ -1,8 +1,9 @@
-export const userDocs = {
- "/users/register": {
+export const authDocs = {
+ "/api/auth/register": {
   post: {
    summary: "Register a new user",
-   tags: ["Users"],
+   description: "Creates a new user account with an email and password.",
+   tags: ["Auth"],
    requestBody: {
     required: true,
     content: {
@@ -10,58 +11,8 @@ export const userDocs = {
       schema: {
        type: "object",
        properties: {
-        name: { type: "string", example: "John Doe" },
-        email: { type: "string", example: "john.doe@example.com" },
-        password: { type: "string", example: "SecurePass123!" },
-        role: { type: "string", example: "user" },
-       },
-       required: ["name", "email", "password", "role"],
-      },
-     },
-    },
-   },
-   responses: {
-    201: {
-     description: "User registered successfully",
-     content: {
-      "application/json": {
-       example: { message: "User registered successfully" },
-      },
-     },
-    },
-    400: {
-     description: "Email already exists",
-     content: {
-      "application/json": {
-       example: { message: "Email already exists" },
-      },
-     },
-    },
-    500: {
-     description: "Internal server error",
-     content: {
-      "application/json": {
-       example: { message: "Internal server error" },
-      },
-     },
-    },
-   },
-  },
- },
-
- "/users/login": {
-  post: {
-   summary: "Log in a user",
-   tags: ["Users"],
-   requestBody: {
-    required: true,
-    content: {
-     "application/json": {
-      schema: {
-       type: "object",
-       properties: {
-        email: { type: "string", example: "john.doe@example.com" },
-        password: { type: "string", example: "SecurePass123!" },
+        email: { type: "string", example: "user@example.com" },
+        password: { type: "string", example: "password123" },
        },
        required: ["email", "password"],
       },
@@ -69,42 +20,72 @@ export const userDocs = {
     },
    },
    responses: {
-    200: {
-     description: "Login successful",
+    "201": {
+     description: "User registered successfully",
      content: {
       "application/json": {
-       example: {
-        responseData: {
-         id: "123e4567-e89b-12d3-a456-426614174000",
-         name: "John Doe",
-         email: "john.doe@example.com",
-         role: "user",
-         token: "eyJhbGciOiJIUzI1...",
-        },
-       },
+       schema: { type: "object", properties: { message: { type: "string" } } },
+       example: { message: "User registered successfully" },
       },
      },
     },
-    400: {
-     description: "Invalid credentials",
+    "400": {
+     description: "Email and password are required / User already exists",
      content: {
       "application/json": {
-       example: { message: "User not found or Invalid password" },
-      },
-     },
-    },
-    500: {
-     description: "Internal server error",
-     content: {
-      "application/json": {
-       example: { message: "Internal server error" },
+       schema: { type: "object", properties: { message: { type: "string" } } },
+       example: { message: "User already exists" },
       },
      },
     },
    },
   },
  },
+ "/api/auth/login": {
+  post: {
+   summary: "Login a user",
+   description: "Authenticates a user and returns a JWT token.",
+   tags: ["Auth"],
+   requestBody: {
+    required: true,
+    content: {
+     "application/json": {
+      schema: {
+       type: "object",
+       properties: {
+        email: { type: "string", example: "user@example.com" },
+        password: { type: "string", example: "password123" },
+       },
+       required: ["email", "password"],
+      },
+     },
+    },
+   },
+   responses: {
+    "200": {
+     description: "Login successful",
+     content: {
+      "application/json": {
+       schema: { type: "object", properties: { token: { type: "string" } } },
+       example: { token: "your-jwt-token" },
+      },
+     },
+    },
+    "401": {
+     description: "Invalid credentials",
+     content: {
+      "application/json": {
+       schema: { type: "object", properties: { message: { type: "string" } } },
+       example: { message: "Invalid credentials" },
+      },
+     },
+    },
+   },
+  },
+ },
+};
 
+export const userDocs = {
  "/users/user": {
   get: {
    summary: "Get all users (protected)",
@@ -134,7 +115,7 @@ export const userDocs = {
     },
    ],
    responses: {
-    200: {
+    "200": {
      description: "List of users",
      content: {
       "application/json": {
@@ -155,7 +136,7 @@ export const userDocs = {
       },
      },
     },
-    401: {
+    "401": {
      description: "Unauthorized",
      content: {
       "application/json": {
@@ -163,7 +144,7 @@ export const userDocs = {
       },
      },
     },
-    500: {
+    "500": {
      description: "Internal server error",
      content: {
       "application/json": {
@@ -175,6 +156,8 @@ export const userDocs = {
   },
  },
 };
+
+export const blogDocs = {};
 
 export const marketplaceDocs = {
  "/marketplace": {
