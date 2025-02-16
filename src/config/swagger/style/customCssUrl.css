@@ -1,0 +1,38 @@
+/* Custom CSS for Swagger UI */
+.swagger-ui .topbar {
+  background-color: #123456; /* Change the color of the top bar */
+}
+
+.swagger-ui .swagger-ui .information-container {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}
+
+.swagger-ui .opblock {
+  background-color: #fff; /* Change background for each operation block */
+}
+
+.swagger-ui .opblock-summary {
+  color: #007bff; /* Change text color for operation summaries */
+}
+
+/* Custom Logo */
+.swagger-ui .topbar {
+  background-color: #1e3a8a; /* Custom background */
+}
+
+.swagger-ui .topbar .link a {
+  font-weight: bold;
+  color: #fff; /* Custom link color */
+}
+
+.swagger-ui .topbar img {
+  content: url('https://yourwebsite.com/your-logo.png'); /* Set your custom logo */
+}
+
+/* Adjust the font of descriptions */
+.swagger-ui .swagger-ui .info .description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
