@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { logger } from "./logger";
-import { ErrorResponse } from "../../models/middleWare.model";
+import { ErrorResponse } from "../model/middlewareModel";
 
 export const errorHandler = (err: ErrorResponse, req: Request, res: Response, next: NextFunction): void => {
  logger.error({
