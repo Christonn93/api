@@ -1,47 +1,22 @@
-import { swaggerUi, specs } from "./config/swagger/swaggerConfig";
-import { errorHandler } from "./utils/error/errorHandler";
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import path from "path";
+import "dotenv/config";
+import express, { Request, Response } from "express";
+import { PORT } from "./config/settings";
+import { enableCors, parseCookies, sessionMiddleware } from "./middleware/middleware";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const apiV1 = "/api/v1";
-const apiV2 = "/api/v2";
 
-dotenv.config();
-
-app.use(cors());
+// Middleware
 app.use(express.json());
-
-// Swagger docs
-app.use(
- `${apiV1}/swagger`,
- swaggerUi.serve,
- swaggerUi.setup(specs, {
-  customCss: ".swagger-ui { background-color: #f0f0f0; }",
-  customCssUrl: "./config/swagger/style/customCssUrl.css",
-  customSiteTitle: "My API Docs",
- })
-);
-
-app.use(
- `${apiV2}/swagger`,
- swaggerUi.serve,
- swaggerUi.setup(specs, {
-  customCss: ".swagger-ui { background-color: #f0f0f0; }",
-  customCssUrl: "./config/swagger/style/customCssUrl.css",
-  customSiteTitle: "My API Docs",
- })
-);
-
-app.use("/swagger-ui", express.static(path.join(__dirname, "node_modules/swagger-ui-dist")));
-
-app.use(errorHandler);
+app.use(parseCookies);
+app.use(enableCors);
+app.use(sessionMiddleware);
 
 app.listen(PORT, () => {
  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+app.get("/", (req: Request, res: Response) => {
+ res.send("API is running");
 });
 
 export default app;

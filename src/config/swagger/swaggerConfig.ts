@@ -1,21 +1,15 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import { authDocs, blogDocs, marketplaceDocs, newspaperDocs, userDocs } from "./swaggerDocs";
+import { authDocs } from "./swaggerDocs";
 
 const options: swaggerJsdoc.Options = {
  definition: {
   openapi: "3.0.0",
   info: {
-   title: "Your API",
+   title: "Development Api",
    version: "1.0.0",
    description: "API documentation for your project",
   },
-  servers: [
-   {
-    url: "http://localhost:3000/api/v1",
-    description: "Development server",
-   },
-  ],
   components: {
    securitySchemes: {
     bearerAuth: {
@@ -26,15 +20,20 @@ const options: swaggerJsdoc.Options = {
    },
   },
   security: [{ bearerAuth: [] }],
+  tags: [
+   {
+    name: "Authentication", // Name of the tag
+    description: "Authentication-related endpoints", // Tag description
+   },
+  ],
   paths: {
-   ...authDocs,
-   ...userDocs,
-   ...blogDocs,
-   ...marketplaceDocs,
-   ...newspaperDocs,
+   ...authDocs.paths,
   },
  },
- apis: [],
+ basePath: "/api/v1",
+ host: "localhost:5000",
+ apis: ["./routes/**/*.ts", "./models/**/*.ts"],
+ schemes: ["https", "http"],
 };
 
 export const specs = swaggerJsdoc(options);

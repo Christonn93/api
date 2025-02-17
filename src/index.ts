@@ -1,12 +1,11 @@
 import app from "./app";
 
-import { router as userRoutes } from "./routes/user.routes";
-import { router as authRoutes } from "./routes/auth.routes";
-import { router as marketplaceRouter } from "./routes/marketplace.routes";
+// Controller imports
+import swaggerController from "./controller/swaggerController";
 
-const apiV1 = "/api/v1";
-const apiV2 = "/api/v2";
+// Route imports
+import authRouter from "./routes/authRouter";
 
 // Routes
-app.use(`${apiV1}/auth`, authRoutes);
-app.use(`${apiV1}/user`, userRoutes);
+app.use("/docs/swagger", swaggerController);
+app.use("/auth", authRouter);
