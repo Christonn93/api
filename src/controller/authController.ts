@@ -58,11 +58,27 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
  refreshTokens.add(refreshToken);
  res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: false, sameSite: "strict" });
 
+ // Get expiration date for the tokens
+ const decodedToken = jwt.decode(token) as jwt.JwtPayload;
+ const tokenExpiration = decodedToken?.exp ? new Date(decodedToken.exp * 1000) : null;
+ const decodedRefreshToken = jwt.decode(refreshToken) as jwt.JwtPayload;
+ const refreshTokenExpiration = decodedRefreshToken?.exp ? new Date(decodedRefreshToken.exp * 1000) : null;
+
  const userResponse = {
   id: user.id,
   email: user.email,
+  username: user.username,
+  firstName: user.firstName,
+  lastName: user.lastName,
+  age: user.age,
+  location: user.location,
+  role: user.role,
+  work: user.work,
+  contactInfo: user.contactInfo,
   token,
   refreshToken,
+  tokenExpiration: tokenExpiration ? tokenExpiration.toISOString() : null,
+  refreshTokenExpiration: refreshTokenExpiration ? refreshTokenExpiration.toISOString() : null,
  };
 
  res.json(userResponse);
@@ -106,7 +122,13 @@ export const refreshToken = (req: Request, res: Response, next: NextFunction): v
  const userId = decoded.id;
  const newToken = generateToken(userId);
 
- res.json({ token: newToken });
+ // Get expiration date for the refresh token
+ const refreshTokenExpiration = decoded.exp ? new Date(decoded.exp * 1000) : null;
+
+ res.json({
+  token: newToken,
+  refreshTokenExpiration: refreshTokenExpiration ? refreshTokenExpiration.toISOString() : null,
+ });
 };
 
 // Logout User

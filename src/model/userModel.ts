@@ -9,6 +9,14 @@ interface CreateUserData {
 }
 
 interface User {
+ username: any;
+ firstName: any;
+ lastName: any;
+ age: any;
+ location: any;
+ role: any;
+ work: any;
+ contactInfo: any;
  id: string;
  email: string;
  password: string;
